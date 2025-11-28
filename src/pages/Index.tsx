@@ -146,17 +146,27 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1A1F2C] via-[#2D1B69] to-[#1A1F2C]" />
+      
       <div 
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-30"
         style={{
           backgroundImage: `
-            linear-gradient(45deg, #9b87f5 25%, transparent 25%),
-            linear-gradient(-45deg, #9b87f5 25%, transparent 25%),
-            linear-gradient(45deg, transparent 75%, #9b87f5 75%),
-            linear-gradient(-45deg, transparent 75%, #9b87f5 75%)
+            radial-gradient(circle at 20% 50%, rgba(155, 135, 245, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(126, 105, 171, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.2) 0%, transparent 50%)
+          `
+        }}
+      />
+      
+      <div 
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `
+            linear-gradient(45deg, #9b87f5 1px, transparent 1px),
+            linear-gradient(-45deg, #9b87f5 1px, transparent 1px)
           `,
-          backgroundSize: '60px 60px',
-          backgroundPosition: '0 0, 0 30px, 30px -30px, -30px 0px'
+          backgroundSize: '40px 40px'
         }}
       />
       
