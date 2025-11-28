@@ -16,7 +16,26 @@ const Index = () => {
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [showMessage, setShowMessage] = useState(false);
 
+  const playSound = (frequency: number, duration: number, type: OscillatorType = 'sine') => {
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.value = frequency;
+    oscillator.type = type;
+    
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration / 1000);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + duration / 1000);
+  };
+
   const handleDownload = () => {
+    playSound(200, 300, 'sawtooth');
     setStage('loading');
     setCurrentMessageIndex(0);
     setShowMessage(true);
@@ -25,6 +44,8 @@ const Index = () => {
   useEffect(() => {
     if (stage === 'loading') {
       if (currentMessageIndex < loadingMessages.length) {
+        playSound(400 + currentMessageIndex * 200, 200, 'square');
+        
         const timer = setTimeout(() => {
           setShowMessage(false);
           
@@ -34,6 +55,10 @@ const Index = () => {
               setShowMessage(true);
             } else {
               setStage('final');
+              playSound(100, 800, 'sawtooth');
+              setTimeout(() => {
+                playSound(800, 1000, 'sine');
+              }, 500);
               downloadFile();
             }
           }, 200);
