@@ -93,13 +93,26 @@ const Index = () => {
           }}
         />
         
-        <div className="relative z-10 text-center animate-fade-in">
+        <div className="relative z-10 text-center animate-fade-in space-y-8">
           <h1 className="text-5xl md:text-7xl lg:text-9xl font-black text-white drop-shadow-2xl animate-glitch mb-8">
             ХА ХА МЫ<br />УНИЧТОЖИЛИ<br />ТВОЙ КОМП
           </h1>
-          <div className="text-2xl md:text-3xl text-white font-bold drop-shadow-lg animate-pulse">
+          <div className="text-2xl md:text-3xl text-white font-bold drop-shadow-lg animate-pulse mb-8">
             😈 💀 😈
           </div>
+          <Button 
+            size="lg" 
+            onClick={() => {
+              playSound(600, 200, 'sine');
+              setStage('initial');
+              setCurrentMessageIndex(0);
+              setShowMessage(false);
+            }}
+            className="text-xl px-8 py-6 font-bold bg-white text-black hover:bg-gray-200 hover:scale-110 transition-all shadow-2xl"
+          >
+            <Icon name="RotateCcw" size={24} className="mr-2" />
+            ПЕРЕЗАПУСТИТЬ
+          </Button>
         </div>
       </div>
     );
