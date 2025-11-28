@@ -15,6 +15,10 @@ const Index = () => {
   const [stage, setStage] = useState<Stage>('initial');
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [showMessage, setShowMessage] = useState(false);
+  const [victimCount, setVictimCount] = useState(() => {
+    const saved = localStorage.getItem('victimCount');
+    return saved ? parseInt(saved, 10) : 0;
+  });
 
   const playSound = (frequency: number, duration: number, type: OscillatorType = 'sine') => {
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -36,6 +40,9 @@ const Index = () => {
 
   const handleDownload = () => {
     playSound(200, 300, 'sawtooth');
+    const newCount = victimCount + 1;
+    setVictimCount(newCount);
+    localStorage.setItem('victimCount', newCount.toString());
     setStage('loading');
     setCurrentMessageIndex(0);
     setShowMessage(true);
@@ -94,6 +101,11 @@ const Index = () => {
         />
         
         <div className="relative z-10 text-center animate-fade-in space-y-8">
+          <div className="bg-black/50 px-6 py-3 rounded-full inline-block mb-4 backdrop-blur-sm">
+            <span className="text-white font-bold text-lg">
+              💀 ЖЕРТВ: {victimCount} 💀
+            </span>
+          </div>
           <h1 className="text-5xl md:text-7xl lg:text-9xl font-black text-white drop-shadow-2xl animate-glitch mb-8">
             ХА ХА МЫ<br />УНИЧТОЖИЛИ<br />ТВОЙ КОМП
           </h1>
@@ -150,10 +162,19 @@ const Index = () => {
       
       <div className="relative z-10 max-w-3xl w-full text-center space-y-8 animate-fade-in">
         <div className="space-y-4">
-          <div className="inline-block bg-primary/20 px-6 py-3 rounded-full border-2 border-primary">
-            <span className="text-primary font-bold text-lg tracking-wider">
-              lt.MAX uNlOcKeR
-            </span>
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <div className="inline-block bg-primary/20 px-6 py-3 rounded-full border-2 border-primary">
+              <span className="text-primary font-bold text-lg tracking-wider">
+                lt.MAX uNlOcKeR
+              </span>
+            </div>
+            {victimCount > 0 && (
+              <div className="inline-block bg-danger/20 px-6 py-3 rounded-full border-2 border-danger">
+                <span className="text-danger font-bold text-lg">
+                  💀 {victimCount} ЖЕРТВ
+                </span>
+              </div>
+            )}
           </div>
           
           <h1 className="text-5xl md:text-7xl font-black text-foreground leading-tight">
