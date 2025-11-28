@@ -84,7 +84,7 @@ const Index = () => {
 
   if (stage === 'final') {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden relative">
+      <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden relative animate-shake">
         <div 
           className="absolute inset-0 animate-rainbow"
           style={{
